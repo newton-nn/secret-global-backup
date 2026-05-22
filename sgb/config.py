@@ -19,8 +19,13 @@ class ConfigError(Exception):
 class Config:
     """Backup configuration loaded from YAML."""
 
-    def __init__(self, path: Optional[Path] = None):
-        self.path = path or Path.cwd() / DEFAULT_CONFIG_FILENAME
+    def __init__(self, path = None):
+        if path is None:
+            self.path: Path = Path.cwd() / DEFAULT_CONFIG_FILENAME
+        elif isinstance(path, str):
+            self.path: Path = Path(path)
+        else:
+            self.path: Path = path
         self.data: Dict[str, Any] = {}
         self._loaded = False
 

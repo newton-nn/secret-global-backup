@@ -135,8 +135,16 @@ class EncryptManifest:
 
     def _load(self):
         if self.path.exists():
-            with open(self.path) as f:
-                self.entries = json.load(f)
+            try:
+                with open(self.path) as f:
+                    content = f.read().strip()
+                    if content:
+                        self.entries = json.loads(content)
+                    else:
+                        self.entries = {}
+            except (json.JSONDecodeError, IOError):
+                # Corrupted manifest — start fresh
+                self.entries = {}
 
     def save(self):
         self.path.parent.mkdir(parents=True, exist_ok=True)

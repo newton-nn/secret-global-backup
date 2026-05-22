@@ -8,3 +8,7 @@ dist/
 build/
 .pytest_cache/
 .secret-global-backup/
+sgb-backup-key.env
+.secret-global-backup/
+sgb-backup-key.env
+sgb-backup-config.yaml

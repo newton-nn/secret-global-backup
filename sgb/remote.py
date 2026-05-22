@@ -29,7 +29,7 @@ class Remote:
         if git_dir.exists():
             return False
         self.repo_dir.mkdir(parents=True, exist_ok=True)
-        result = self._git("init")
+        result = self._git("init", "--initial-branch=main")
         if result.returncode != 0:
             raise RemoteError(f"Git init failed: {result.stderr}")
         # Configure git user for commits
